@@ -31,7 +31,7 @@ module.exports = {
       await Product_Component.bulkCreate(data);
 
       res.status(201).json({
-        status: false,
+        status: true,
         message: "success create records in table product_components",
         data: null,
       });
@@ -77,7 +77,7 @@ module.exports = {
         data: null
       })
     } catch (err) {
-      if(err.message == "missing query paramater" || err.message == "product not found" || err.message == "component not found" || err.message == "record not found"){
+      if(err.message == "missing query parameter" || err.message == "product not found" || err.message == "component not found" || err.message == "record not found"){
         return res.status(400).json({
           status: false,
           message: err.message,
