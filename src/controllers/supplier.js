@@ -170,7 +170,7 @@ const deleteSupllier = async (req, res, next) => {
       data: null,
     });
   } catch (err) {
-    if (err.message == "missing supplier id params" || err.message == "supplier not found") {
+    if (err.message == "missing supplier id query" || err.message == "supplier not found") {
       return res.status(400).json({
         status: false,
         message: err.message,
