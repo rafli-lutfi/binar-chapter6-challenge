@@ -2,10 +2,11 @@
   "name": "challenge",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
+    "start": "node src",
+    "dev": "nodemon src",
+    "test": "jest --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +21,9 @@
     "pg": "^8.10.0",
     "sequelize": "^6.31.0",
     "swagger-ui-express": "^4.6.2"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3"
   }
 }

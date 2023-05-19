@@ -23,7 +23,7 @@ const create = async (req, res, next) => {
       throw new Error("there's component id that can't be found");
     }
 
-    const checkSupplier = Supplier.findOne({ where: { id: supplier_id } });
+    const checkSupplier = await Supplier.findOne({ where: { id: supplier_id } });
     if (!checkSupplier) {
       throw new Error("supplier not found");
     }
@@ -40,13 +40,13 @@ const create = async (req, res, next) => {
 
     await Component_Supplier.bulkCreate(data);
 
-    return res.status(200).json({
+    return res.status(201).json({
       status: true,
       message: "success create record/records in table component_supplier",
       data: null,
     });
   } catch (err) {
-    if (err.message == "missing query parameter" || err.message == "missing body request" || err.message == "component id must be an array" || err.message == "there's component id that can't be found" || err.message == "supplier not found") {
+    if (err.message == "missing query parameter" || err.message == "missing body request" || err.message == "component id must be an array" || err.message == "there's component id that can't be found" || err.message == "supplier not found" || err.message == "there is some data that already exist") {
       return res.status(400).json({
         status: false,
         message: err.message,

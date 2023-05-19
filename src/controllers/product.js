@@ -64,7 +64,7 @@ const create = async (req, res, next) => {
     }
 
     if (typeof component_id != "object") {
-      throw new Error("component id must be array");
+      throw new Error("component id must be an array");
     }
 
     const checkComponent = await Component.findAndCountAll({ where: { id: component_id } });
@@ -76,20 +76,15 @@ const create = async (req, res, next) => {
     const newProduct = await Product.create({ name, quantity });
     const product_id = newProduct.id;
 
-    let addMessage = "";
-    if (component_id) {
-      const data = component_id.map((id) => {
-        return { product_id: product_id, component_id: id };
-      });
+    const data = component_id.map((id) => {
+      return { product_id: product_id, component_id: id };
+    });
 
-      await Product_Component.bulkCreate(data);
-
-      addMessage += " and create records in table product_components";
-    }
+    await Product_Component.bulkCreate(data);
 
     return res.status(201).json({
       status: true,
-      message: `success create new product${addMessage}`,
+      message: `success create new product and create records in table product_components`,
       data: newProduct,
     });
   } catch (err) {
