@@ -33,6 +33,13 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/error", (req, res) => {
+  error()
+  res.status(200).json({
+    message: "this message will be never out"
+  })
+})
+
 app.use("/api/v1", router)
 
 app.use(Sentry.Handlers.errorHandler());
