@@ -45,6 +45,14 @@ jobs:
           DB_USERNAME: postgres
           DB_PASSWORD: postgres
 
+      - name: Migrate database
+        run: npx sequelize db:migrate
+        env:
+          DB_HOST: localhost
+          DB_NAME: ci-cd
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
+
       - name: Run Test
         run: npm test
         env:
