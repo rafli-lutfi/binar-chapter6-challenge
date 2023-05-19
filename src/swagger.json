@@ -11,7 +11,12 @@
   },
   "servers": [
     {
-      "url": "https://manufacture-app-development.up.railway.app/api/v1"
+      "url": "https://manufacture-app-development.up.railway.app/api/v1",
+      "description": "Development Server"
+    },
+    {
+      "url": "https://manufacture-app-production.up.railway.app/api/v1",
+      "description": "Production Server"
     }
   ],
   "tags": [
