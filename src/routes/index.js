@@ -14,12 +14,6 @@ const product_component = require("./product_component")
 router.use("/docs", swaggerUI.serve)
 router.get("/docs", swaggerUI.setup(swaggerDocument))
 
-router.get("/", (req, res, next) => {
-  res.status(200).json({
-    message: "welcome",
-  });
-});
-
 router.use(user)
 
 router.use("/components", component)
