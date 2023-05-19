@@ -3,9 +3,25 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors")
 const router = require("./routes")
-const { PORT } = process.env;
+const Sentry = require('@sentry/node');
+const { SENTRY_DSN, ENVIRONMENT } = process.env;
 
 const app = express();
+
+Sentry.init({
+  environment: ENVIRONMENT,
+  dsn: SENTRY_DSN,
+  integrations: [
+    new Sentry.Integrations.Http({ tracing: true }),
+    new Sentry.Integrations.Express({ app }),
+    ...Sentry.autoDiscoverNodePerformanceMonitoringIntegrations(),
+  ],
+
+  tracesSampleRate: 1.0,
+});
+
+app.use(Sentry.Handlers.requestHandler());
+app.use(Sentry.Handlers.tracingHandler());
 
 app.use(cors())
 app.use(logger("tiny"));
@@ -18,6 +34,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1", router)
+
+app.use(Sentry.Handlers.errorHandler());
 
 // handle error 404
 app.use((req,res,next) =>{
